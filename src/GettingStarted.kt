@@ -76,6 +76,28 @@ fun main(args: Array<String>) {
     println(getMojStringLength(2411))
     println(getMojStringLength(124.21))
     println(getMojStringLength(null))
+    forLoop1()
+    forLoop2()
+    whileLoop1()
+    println(whenDescribe(10))
+    range1()
+    range2()
+    range3()
+    range4()
+    collection1()
+    collection2()
+    collection3Lambda()
+    defaultValues(21, "lalala")
+    filterList()
+    rangeUsage()
+    mapFun()
+    val data1proba = arrayOf(1, 3, 4, 312, 31)
+    val data2proba = null
+//    executeStatementIfNull()
+    executeIfNotNull(data1proba)
+    executeIfNotNull(data2proba)
+    whenInFun("Red")
+//    whenInFun("Yellow")
 }
 
 /**
@@ -194,10 +216,249 @@ fun getMojStringLength(obj: Any?): String {
     }
 }
 
+/**
+ * *********************************LOOPS******************************************
+ */
 
+/**
+ * kockica u CRTRL+Q oznacava val (immutable)
+ * kruzic oznacava var (mutable)
+ */
+fun forLoop1() {
+    var items = listOf("apple", "banana", "kiwi")
+    for (item in items) {
+        println(item)
+    }
+}
 
+/**
+ * Koristenje index-a -> totalno nesto novo
+ */
+fun forLoop2() {
+    val items = listOf("apple", "kiwi", "banana")
+    for (index in items.indices) {
+        println("item at index $index is ${items[index]}")
+    }
+}
 
+/**
+ * while loop -> koristenje varijable index++ -> STRAHOVITO BITNO
+ */
+fun whileLoop1() {
+    val items = listOf("apple", "kiwi", "banana")
+    var index = 0
+    while (index < items.size) {
+        println("item at $index is ${items[index]}")
+        index++
+    }
+}
 
+/**
+ * when statement - treba jos istraziti
+ *
+ */
+fun whenDescribe(obj: Any): String {
+    when (obj) {
+        1 -> return "One"
+        "Hello" -> return "Greetings"
+        is Long -> return "Long"
+        !is String -> return "Not a String"
+        else -> return "Unknown"
+    }
+}
 
+/**
+ **************************************RANGES****************************************
+ */
 
+/**
+ * in operator
+ * provjera je li broj unutar nekog skupa brojeva
+ */
+fun range1() {
+    val x = 10
+    val y = 9
+    if (x in 1..y + 1) {
+        println("fits in range")
+    }
+}
+
+/**
+ * provjera je li index unutar skupa indexa neke liste
+ * vidimo da indexi -1 i velicina liste nisu unutar skupa indexa bilo koje liste
+ */
+fun range2() {
+    val lista = listOf("a", "b", "c")
+    if (-1 !in 0..lista.lastIndex) {
+        println("-1 is out of")
+    }
+    if (lista.size !in lista.indices) {
+        println("list size is out of valid list indices range too")
+    }
+}
+
+/**
+ * iteriranje po range-u
+ */
+fun range3() {
+    for (x in 1..5) {
+        print("$x ")
+    }
+}
+
+/**
+ * iterating over a progression
+ * downTo, step
+ */
+fun range4() {
+    println()
+    for (x in 1..10 step 2) {
+        print("$x ")
+    }
+    println()
+    for (x in 9 downTo 0 step 3) {
+        print("$x ")
+    }
+    println()
+}
+
+/**
+ **************************************COLLECTIONS****************************************
+ */
+
+/**
+ * obicna kolekcija u obliku array-a
+ */
+fun collection1() {
+    val items = arrayOf("jen", "dva", "tri")
+    for (item in items) {
+        println(item)
+    }
+}
+
+/**
+ * Koristenje when i in operatora unutar funkcije
+ */
+fun collection2() {
+    val items = arrayOf("jabuka", "kruska", "sljiva")
+    when {
+        "jabuka" in items -> println("Ovo je ${items[0]}")
+        "kruska" in items -> println("Ovo je ${items[1]}")
+        "sljiva" in items -> println("Ovo je ${items[2]}")
+    }
+}
+
+/**
+ * Koristenje lambda expressiona uzimajuci kolekciju tipa array
+ * Najprije filtrira prema onima koji pocinju s k
+ * Onda sortira po abecedi
+ * Onda mapira u sve velikim slovom
+ * Onda za svaku tu listu printa to sto imamo
+ */
+fun collection3Lambda() {
+    var fruits = arrayOf("jabuka", "ananas", "kruska", "kiwi", "sljiva")
+    fruits
+            .filter { it.startsWith("k") }
+            .sortedBy { it }
+            .map { it.toUpperCase() }
+            .forEach { println(it) }
+}
+
+/**
+ * Stavljanje defaultnih vrijednosti u parametre funkcije
+ */
+fun defaultValues(a: Int = 0, b: String = "") {
+    println("$a $b")
+}
+
+/**
+ * a =>
+ * it => svi elementi liste
+ * forEach => printanje svakog elementa liste posebno
+ */
+fun filterList() {
+    val lista = arrayOf(21, 412, 2414, -21, -31, 212, 41, -12)
+    val positives1 = lista.filter { a -> a > 0 }
+    val positives2 = lista.filter { it > 0 }
+    println("$positives1")
+    println("$positives2")
+    positives1.forEach { print("$it ") }
+    positives2.forEach { print("$it ") }
+    println()
+}
+
+/**
+ * Sve range opcije - for petlja
+ */
+fun rangeUsage() {
+    for (i in 1..10) {
+        print("$i ")
+    }
+    println()
+    for (i in 1 until 10) {
+        print("$i ")
+    }
+    println()
+    for (i in 2..10 step 2) {
+        print("$i ")
+    }
+    println()
+    for (i in 10 downTo 1) {
+        print("$i ")
+    }
+    println()
+    val b1: Int = 3
+    if (b1 in 1..10) {
+        print(11111)
+    }
+    println()
+}
+
+/**
+ * Map struktura podataka
+ */
+fun mapFun() {
+    val map1 = mapOf("a" to 1, "b" to 2, "c" to 3)
+    println(map1)
+    map1.forEach { print("$it ") }
+    println()
+    for (i in map1) {
+        println(i.key + i.value)
+        println(i.key)
+        println(i.value)
+    }
+    println(map1.keys)
+    println(map1.values)
+}
+
+/**
+ * Throw-a korisni exception ako je varijabla null
+ */
+fun executeStatementIfNull() {
+    val data2: Map<String, Int> = mapOf("bamboo" to 1321, "gmail" to 41241, "yahoo" to 414)
+    val google = data2["google"]
+    println(google)
+    val email = data2["email"] ?: throw IllegalStateException("Email mi fali ovdje u map")
+    println(email)
+}
+
+/**
+ * naredba data1?.let => Izvrsi nesto ako data1 nije null
+ */
+fun executeIfNotNull(data1: Array<Int>?) {
+    data1?.let { println("data1 nije null + $it") }
+}
+
+/**
+ ************************** SINGLE EXPRESSION FUNCTION ******************************
+ * Unutar ovakve funkcije ne mogu definirati varijable
+ * Naredba throw izbaci ono sto je bitno kod runtime greske
+ * Nakon throw naredbe se nista sljedece ne izvrsava
+ */
+fun whenInFun(color: String) = when (color) {
+    "Red" -> println(124)
+    "Green" -> println(342)
+    "Blue" -> println(421)
+    else -> throw IllegalArgumentException("Pogresni color parametar")
+}
 
